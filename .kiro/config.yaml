@@ -1,0 +1,218 @@
+# Kiro Configuration - Smart Desktop Automation
+# This configuration file defines settings for the Smart Desktop Automation tool
+# built with Kiro for the Kiro Heroes Challenge Week 2: Lazy Automation
+
+# Application Metadata
+app:
+  name: Smart Desktop Automation
+  version: 1.0.0
+  description: "AI-powered intelligent desktop automation tool that uses Kiro to automate tedious digital tasks"
+  author: Koushik R
+  license: MIT
+  homepage: https://github.com/Koushik926/smart-desktop-automation
+  repository:
+    type: git
+    url: https://github.com/Koushik926/smart-desktop-automation.git
+
+# Kiro Integration Settings
+kiro:
+  version: 1.0.0
+  enabled: true
+  features:
+    - natural_language_processing
+    - intelligent_task_automation
+    - cross_platform_support
+    - ai_powered_file_organization
+    - batch_processing
+    - error_recovery
+  api_version: v2
+  timeout: 30000  # milliseconds
+  retry_attempts: 3
+  retry_delay: 1000  # milliseconds
+
+# AI Model Configuration
+ai_model:
+  provider: kiro
+  model_version: latest
+  confidence_threshold: 0.85
+  optimization_level: high
+  cache_enabled: true
+  cache_ttl: 3600  # seconds
+
+# Desktop Automation Settings
+automation:
+  platforms:
+    - name: windows
+      supported: true
+      api: win32
+    - name: macos
+      supported: true
+      api: darwin
+    - name: linux
+      supported: true
+      api: x11
+  
+  features:
+    file_organization:
+      enabled: true
+      batch_size: 100
+      timeout: 30000
+      retry_policy: exponential
+    
+    batch_renaming:
+      enabled: true
+      max_files: 1000
+      pattern_validation: true
+      preview_before_apply: true
+    
+    folder_management:
+      enabled: true
+      deep_scan: true
+      recursive: true
+      max_depth: 10
+    
+    system_cleanup:
+      enabled: true
+      dry_run_mode: true
+      safe_deletion: true
+      backup_before_delete: true
+      target_directories:
+        - temp
+        - cache
+        - logs
+        - downloads/old
+
+# File Organization Rules
+file_organization:
+  strategies:
+    - strategy: extension_based
+      enabled: true
+      priority: 1
+    - strategy: date_based
+      enabled: true
+      priority: 2
+    - strategy: content_based
+      enabled: true
+      priority: 3
+      use_ai: true
+  
+  supported_extensions:
+    documents: [.pdf, .docx, .doc, .txt, .xlsx, .xls]
+    images: [.jpg, .jpeg, .png, .gif, .bmp, .svg]
+    videos: [.mp4, .avi, .mov, .mkv, .flv]
+    audio: [.mp3, .wav, .flac, .aac, .ogg]
+    code: [.py, .js, .java, .cpp, .c, .go, .rs]
+    archives: [.zip, .rar, .7z, .tar, .gz]
+
+# Performance Configuration
+performance:
+  max_concurrent_tasks: 4
+  max_file_size_limit: 5368709120  # 5GB in bytes
+  batch_processing_enabled: true
+  batch_size: 50
+  worker_threads: 4
+  queue_size: 1000
+  cache_size_mb: 256
+
+# Logging Configuration
+logging:
+  level: info  # debug, info, warn, error
+  format: json
+  output:
+    - type: file
+      path: logs/desktop-automation.log
+      max_size: 10485760  # 10MB
+      max_backups: 5
+    - type: console
+      enabled: true
+  
+  modules:
+    file_operations: debug
+    ai_processing: info
+    system_calls: warn
+    error_handling: error
+
+# Security Settings
+security:
+  enable_validation: true
+  validate_file_paths: true
+  validate_patterns: true
+  sandbox_mode: false
+  user_confirmation_required: true
+  audit_trail_enabled: true
+
+# Error Handling
+error_handling:
+  strategy: retry_and_log
+  max_retry_attempts: 3
+  exponential_backoff:
+    enabled: true
+    base_delay: 1000  # milliseconds
+    max_delay: 30000
+  
+  recoverable_errors:
+    - FileNotFound
+    - PermissionDenied
+    - TemporaryServiceUnavailable
+  
+  fatal_errors:
+    - SecurityViolation
+    - InvalidConfiguration
+    - SystemIntegrationFailure
+
+# Notification Settings
+notifications:
+  enabled: true
+  levels:
+    - type: task_completed
+      enabled: true
+      channels: [console, log]
+    - type: task_failed
+      enabled: true
+      channels: [console, log, error]
+    - type: performance_warning
+      enabled: true
+      channels: [log]
+
+# Integration Endpoints
+integrations:
+  kiro_builder:
+    enabled: true
+    endpoint: https://builder.kiro.ai
+    timeout: 30000
+  
+  analytics:
+    enabled: true
+    endpoint: https://analytics.kiro.ai
+    batch_interval: 60000  # milliseconds
+
+# Feature Flags
+features:
+  ai_powered_organization: true
+  predictive_cleanup: true
+  batch_operations: true
+  cross_platform_sync: true
+  dark_mode: true
+  system_tray_integration: true
+
+# Scheduling Configuration
+scheduling:
+  enabled: true
+  default_schedule: manual
+  auto_cleanup:
+    enabled: false
+    frequency: weekly
+    time: '02:00'
+    timezone: UTC
+
+# Environment
+environment: production
+debug: false
+verbose_logging: false
+
+# Build Information
+build:
+  timestamp: "2025-12-03T15:45:00Z"
+  version: 1.0.0
+  git_hash: "${GIT_HASH}"
+  release_type: stable
