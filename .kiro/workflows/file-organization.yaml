@@ -1,0 +1,85 @@
+# File Organization Workflow
+# Kiro automated workflow for intelligent file organization
+
+workflow:
+  name: Intelligent File Organization
+  version: 1.0.0
+  description: Organize files by type, date, and content using AI
+  enabled: true
+  
+  triggers:
+    - type: manual
+      enabled: true
+    - type: scheduled
+      enabled: false
+      cron: "0 2 * * 0"  # Weekly at 2 AM
+    - type: folder_watch
+      enabled: false
+      paths:
+        - ~/Downloads
+        - ~/Desktop
+
+  steps:
+    - name: scan_directory
+      enabled: true
+      action: scan_files
+      parameters:
+        recursive: true
+        max_depth: 3
+        file_types: [all]
+      timeout: 60000
+
+    - name: analyze_files
+      enabled: true
+      action: analyze_content
+      parameters:
+        use_ai: true
+        confidence_threshold: 0.85
+      dependencies: [scan_directory]
+      timeout: 120000
+
+    - name: categorize_files
+      enabled: true
+      action: categorize
+      parameters:
+        strategy: content_based
+        create_categories: true
+      dependencies: [analyze_files]
+      timeout: 60000
+
+    - name: organize_files
+      enabled: true
+      action: move_files
+      parameters:
+        dry_run: false
+        create_folders: true
+        backup: true
+      dependencies: [categorize_files]
+      timeout: 120000
+
+    - name: verify_organization
+      enabled: true
+      action: verify
+      parameters:
+        check_duplicates: true
+        validate_structure: true
+      dependencies: [organize_files]
+      timeout: 60000
+
+  error_handling:
+    strategy: rollback_on_error
+    max_retries: 3
+    retry_delay: 5000
+
+  notifications:
+    on_success:
+      message: "Files organized successfully"
+      channels: [console]
+    on_error:
+      message: "File organization failed"
+      channels: [console, error]
+
+  performance:
+    max_files_per_batch: 100
+    concurrent_operations: 4
+    timeout_global: 600000
